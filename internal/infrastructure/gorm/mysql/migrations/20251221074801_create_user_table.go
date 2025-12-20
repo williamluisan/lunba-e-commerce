@@ -9,7 +9,7 @@ import (
 type CreateUsers struct{}
 
 func (m CreateUsers) ID() string {
-    return "20251221070500_create_user_table"
+    return "20251221074801_create_user_table"
 }
 
 func (m CreateUsers) Up(db *gorm.DB) error {

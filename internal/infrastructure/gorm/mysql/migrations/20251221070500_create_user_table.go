@@ -1,0 +1,21 @@
+package migrations
+
+import (
+	"gorm.io/gorm"
+
+	gormInfra "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm"
+)
+
+type CreateUsers struct{}
+
+func (m CreateUsers) ID() string {
+    return "20251221070500_create_user_table"
+}
+
+func (m CreateUsers) Up(db *gorm.DB) error {
+    return db.Migrator().CreateTable(&gormInfra.UserModel{})
+}
+
+func (m CreateUsers) Down(db *gorm.DB) error {
+    return db.Migrator().DropTable("users")
+}

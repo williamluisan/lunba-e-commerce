@@ -1,23 +1,54 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"time"
 
-	gormInfra "project/internal/infrastructure/gorm"
-	"project/internal/infrastructure/mysql"
+	gormMysql "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/mysql"
 )
 
-func main() {
-	dsn := "user:password@tcp(localhost:3306)/app?parseTime=true"
+type SchemaMigration struct {
+	ID			string	`gorm:"primaryKey"`
+	AppliedAt 	time.Time
+}
 
-	db, err := mysql.NewDB(dsn)
+func main() {
+	dsn := "lunba:toor@tcp(localhost:3306)/lunba_e_commerce?parseTime=true"
+
+	db, err := gormMysql.NewMysqlDB(dsn)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if err := gormInfra.AutoMigrate(db); err != nil {
+	if err := db.AutoMigrate(&SchemaMigration{}); err != nil {
 		log.Fatal(err)
 	}
+
+	migrations := gormMysql.Models()
+
+	for _, m := range migrations {
+        var count int64
+        db.Model(&SchemaMigration{}).
+            Where("id = ?", m.ID()).
+            Count(&count)
+
+        if count > 0 {
+            fmt.Println("Skipping", m.ID())
+            continue
+        }
+
+        fmt.Println("Applying", m.ID())
+        if err := m.Up(db); err != nil {
+            panic(err)
+        }
+
+        db.Create(&SchemaMigration{
+            ID:        m.ID(),
+            AppliedAt: time.Now(),
+        })
+    }
+
 
 	log.Println("migration completed successfully")
 }

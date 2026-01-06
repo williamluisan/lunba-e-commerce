@@ -8,6 +8,7 @@ import (
 func RegisterUserRoutes(rg *gin.RouterGroup, h *handler.UserHandler) {
 	users := rg.Group("/users")
 	{
+		users.POST("/create", h.Create)
 		// users.GET("/:id", h.GetUserById)
 		users.GET("/email/:email", h.GetUserByEmail)
 	}

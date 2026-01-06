@@ -25,5 +25,5 @@ func main() {
 
 	// router
 	router := transHttpGin.NewRouter(deps)
-	router.Run(":8081")
+	router.Run(":80")
 }

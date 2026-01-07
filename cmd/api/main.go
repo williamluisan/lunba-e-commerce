@@ -1,19 +1,30 @@
 package main
 
 import (
+	"log"
+
 	transHttpGin "github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin"
 
 	"github.com/williamluisan/lunba-e-commerce/internal/domain/service"
-	"github.com/williamluisan/lunba-e-commerce/internal/infrastructure/mysql"
+	gormMysql "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/integration/mysql"
+	gormUserRepo "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/repository"
 	userHandler "github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler/user"
 )
 
 func main() {
+	dsn := "lunba:toor@tcp(localhost:3306)/lunba_e_commerce?parseTime=true"
+	db, err := gormMysql.NewMysqlDB(dsn)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	// infrastructure
-	mysqlUser := mysql.NewMysqlUserRepository()
+	// mysqlUser := mysql.NewMysqlUserRepository()
+	gormUserRepo := gormUserRepo.NewUserRepository(db)
 
 	// domain
-	userService := service.NewUserService(mysqlUser)
+	userRepo := gormUserRepo
+	userService := service.NewUserService(userRepo)
 
 	// transport handler
 	userHandler := userHandler.NewUserHandler(userService)

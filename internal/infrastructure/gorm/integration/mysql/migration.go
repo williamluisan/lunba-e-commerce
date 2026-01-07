@@ -1,7 +1,7 @@
 package mysql
 
 import (
-	gormMysqlMigrations "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/mysql/migrations"
+	gormMysqlMigrations "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/integration/mysql/migrations"
 	"gorm.io/gorm"
 )	
 

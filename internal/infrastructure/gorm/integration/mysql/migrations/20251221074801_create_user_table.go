@@ -3,7 +3,7 @@ package migrations
 import (
 	"gorm.io/gorm"
 
-	gormInfra "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm"
+	gormModel "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/model"
 )
 
 type CreateUsers struct{}
@@ -13,7 +13,7 @@ func (m CreateUsers) ID() string {
 }
 
 func (m CreateUsers) Up(db *gorm.DB) error {
-    return db.Migrator().CreateTable(&gormInfra.UserModel{})
+    return db.Migrator().CreateTable(&gormModel.UserModel{})
 }
 
 func (m CreateUsers) Down(db *gorm.DB) error {

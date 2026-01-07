@@ -55,9 +55,6 @@ func (s *userServiceImpl) Create(ctx context.Context, input *entity.UserInput) e
 		return errors.New("the email is already in use")
 	}
 
-	// other logic may apply
-	// ...
-
 	// hash password
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 	if (err != nil) {
@@ -72,11 +69,12 @@ func (s *userServiceImpl) Create(ctx context.Context, input *entity.UserInput) e
 		Password: string(hashedPassword),
 	}
 	newUser := entity.NewUser(data)
-	fmt.Println(newUser)
+
+	if err := s.repo.Create(ctx, newUser); err != nil {
+		return err
+	}
 
 	return nil
-	// presistence delageted to the repository (DIP and SRP)
-	// save := s.repo.Save(ctx, newUser)
 }
 
 func (s *userServiceImpl) Update(ctx context.Context, input *entity.UserInput) error {

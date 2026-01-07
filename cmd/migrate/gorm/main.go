@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	gormMysql "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/mysql"
+	gormMysql "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/integration/mysql"
 )
 
 type SchemaMigration struct {

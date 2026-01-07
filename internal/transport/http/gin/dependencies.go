@@ -1,7 +1,9 @@
 package gin
 
-import "github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler"
+import (
+	userHandler "github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler/user"
+)	
 
 type Dependencies struct {
-	UserHandler *handler.UserHandler
+	UserHandler *userHandler.UserHandler
 }

@@ -2,10 +2,10 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler"
+	userHandler "github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler/user"
 )
 
-func RegisterUserRoutes(rg *gin.RouterGroup, h *handler.UserHandler) {
+func RegisterUserRoutes(rg *gin.RouterGroup, h *userHandler.UserHandler) {
 	users := rg.Group("/users")
 	{
 		users.POST("/create", h.Create)

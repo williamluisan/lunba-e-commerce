@@ -5,7 +5,7 @@ import (
 
 	"github.com/williamluisan/lunba-e-commerce/internal/domain/service"
 	"github.com/williamluisan/lunba-e-commerce/internal/infrastructure/mysql"
-	"github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler"
+	userHandler "github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler/user"
 )
 
 func main() {
@@ -16,7 +16,7 @@ func main() {
 	userService := service.NewUserService(mysqlUser)
 
 	// transport handler
-	userHandler := handler.NewUserHandler(userService)
+	userHandler := userHandler.NewUserHandler(userService)
 
 	// transport dependencies
 	deps := &transHttpGin.Dependencies{

@@ -8,7 +8,7 @@ import (
 type CreateProduct struct{}
 
 func (m CreateProduct) ID() string {
-	return "20250108162100_create_product_table"
+	return "20260108162100_create_product_table"
 }
 
 func (m CreateProduct) Up(db *gorm.DB) error {

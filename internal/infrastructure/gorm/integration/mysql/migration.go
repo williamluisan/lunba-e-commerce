@@ -17,5 +17,6 @@ func Models() []Migration{
 		gormMysqlMigrations.CreateUser{},
 		gormMysqlMigrations.CreateProduct{},
 		gormMysqlMigrations.UpdateProductCodeColumn{},
+		gormMysqlMigrations.UpdateProductPriceColumnType{},
 	}
 }

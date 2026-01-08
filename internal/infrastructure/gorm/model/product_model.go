@@ -10,7 +10,7 @@ type ProductModel struct {
 	ID    		int64		`gorm:"primaryKey;unique;not null"`
 	Name  		string		`gorm:"type:varchar(255);not null;"`
 	Code  		string		`gorm:"type:varchar(50);not null;uniqueIndex"`
-	Price 		float64		`gorm:"type:decimal(5,2);"`
+	Price 		float64		`gorm:"type:decimal(10,2);"`
 	CreatedAt 	time.Time
 	CreatedBy 	int
 }

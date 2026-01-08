@@ -48,8 +48,7 @@ func (h *UserHandler) Create(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, handler.APIResponse{
 				Success: false,
 				Message: err.Error(),
-			},
-		)
+		})
 		return
 	}
 	

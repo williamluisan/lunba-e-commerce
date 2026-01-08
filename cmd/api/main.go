@@ -7,7 +7,8 @@ import (
 
 	"github.com/williamluisan/lunba-e-commerce/internal/domain/service"
 	gormMysql "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/integration/mysql"
-	gormUserRepo "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/repository"
+	gormRepo "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/repository"
+	productHandler "github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler/product"
 	userHandler "github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler/user"
 )
 
@@ -18,20 +19,25 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// infrastructure
+	/* infrastructure */
 	// mysqlUser := mysql.NewMysqlUserRepository()
-	gormUserRepo := gormUserRepo.NewUserRepository(db)
+	gormUserRepo := gormRepo.NewUserRepository(db)
+	gormProductRepo := gormRepo.NewProductRepository(db)
 
-	// domain
+	/* domain */
 	userRepo := gormUserRepo
 	userService := service.NewUserService(userRepo)
+	productRepo := gormProductRepo
+	productService := service.NewProductService(productRepo)
 
-	// transport handler
+	/* transport handler */
 	userHandler := userHandler.NewUserHandler(userService)
+	productHandler := productHandler.NewProductHandler(productService)
 
-	// transport dependencies
+	/* transport dependencies */
 	deps := &transHttpGin.Dependencies{
 		UserHandler: userHandler,
+		ProductHandler: productHandler,
 	}
 
 	// router

@@ -1,0 +1,20 @@
+package migrations
+
+import (
+	gormModel "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/model"
+	"gorm.io/gorm"
+)
+
+type UpdateProductPriceColumnType struct {}
+
+func (m UpdateProductPriceColumnType) ID() string {
+	return "20260108215200_update_product_price_column_type"
+}
+
+func (m UpdateProductPriceColumnType) Up(db *gorm.DB) error {
+	return db.Migrator().AlterColumn(&gormModel.ProductModel{}, "Price")
+}
+
+func (m UpdateProductPriceColumnType) Down(db *gorm.DB) error {
+	return nil
+}

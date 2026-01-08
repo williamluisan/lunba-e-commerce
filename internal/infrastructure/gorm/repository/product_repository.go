@@ -14,12 +14,12 @@ type productRepository struct {
 }
 
 func NewProductRepository(db *gorm.DB) repository.ProductRepository {
-	return &userRepository{db: db}
+	return &productRepository{db: db}
 }
 
 var mProductModel = gormModel.ProductModel{}
 
-func (r *userRepository) Create(ctx context.Context, p *entity.Product) error {
+func (r *productRepository) Create(ctx context.Context, p *entity.Product) error {
 	data := mProductModel.FromEntity(p)
 
 	if err := gorm.G[gormModel.ProductModel](r.db).Create(ctx, data); err != nil {
@@ -29,10 +29,10 @@ func (r *userRepository) Create(ctx context.Context, p *entity.Product) error {
 	return nil
 }
 
-func (r *userRepository) Delete(ctx context.Context, id int64) error {
+func (r *productRepository) Delete(ctx context.Context, id int64) error {
 	return nil
 }
 
-func (r *userRepository) GetByCode(ctx context.Context, code string) (*entity.Product, error) {
+func (r *productRepository) GetByCode(ctx context.Context, code string) (*entity.Product, error) {
 	return nil, nil
 }

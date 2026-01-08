@@ -1,0 +1,26 @@
+package migrations
+
+import (
+	gormModel "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/model"
+	"gorm.io/gorm"
+)
+
+type UpdateProductCodeColumn struct {}
+
+func (m UpdateProductCodeColumn) ID() string {
+	return "20260108162100_update_product_code_column"
+}
+
+func (m UpdateProductCodeColumn) Up(db *gorm.DB) error {
+	if db.Migrator().HasIndex(&gormModel.ProductModel{}, "Code") == false {
+		return db.Migrator().CreateIndex(&gormModel.ProductModel{}, "Code")
+	}
+	return nil
+}
+
+func (m UpdateProductCodeColumn) Down(db *gorm.DB) error {
+	if db.Migrator().HasIndex(&gormModel.ProductModel{}, "Code") == true {
+		return db.Migrator().DropIndex(&gormModel.ProductModel{}, "Code")
+	}
+	return nil
+}

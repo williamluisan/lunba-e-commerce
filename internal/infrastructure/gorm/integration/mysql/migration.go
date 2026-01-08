@@ -15,6 +15,5 @@ type Migration interface {
 func Models() []Migration{
 	return []Migration{
 		gormMysqlMigrations.CreateUsers{},
-		gormMysqlMigrations.CreateProducts{},
 	}
 }

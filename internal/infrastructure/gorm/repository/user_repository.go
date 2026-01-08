@@ -17,18 +17,23 @@ func NewUserRepository(db *gorm.DB) repository.UserRepository {
 	return &userRepository{db: db}
 }
 
+var mUserModel gormModel.UserModel
+
 func (r *userRepository) GetById(ctx context.Context, id string) (*entity.User, error) {
 	return nil, nil
 }
 
-func (r *userRepository) GetByEmail(ctx context.Context, id string) (*entity.User, error) {
-	return nil, nil
+func (r *userRepository) GetByEmail(ctx context.Context, email string) (*entity.User, error) {
+	user, err := gorm.G[gormModel.UserModel](r.db).Where("email = ?", email).First(ctx); 
+	if err != nil {
+		return nil, err
+	}
+
+	return user.ToEntity(), nil
 }
 
 func (r *userRepository) Create(ctx context.Context, u *entity.User) error {
-	var m gormModel.UserModel
-
-	data := m.FromEntity(u)
+	data := mUserModel.FromEntity(u)
 
 	if err := gorm.G[gormModel.UserModel](r.db).Create(ctx, data); err != nil {
 		return err

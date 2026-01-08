@@ -1,4 +1,4 @@
-package gorm
+package model
 
 import (
 	"time"
@@ -18,7 +18,7 @@ type UserModel struct {
 }
 
 func (UserModel) TableName() string {
-	return "users"
+	return "user"
 }
 
 // convert entity to model

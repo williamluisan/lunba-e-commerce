@@ -14,6 +14,7 @@ type Migration interface {
 // list all models
 func Models() []Migration{
 	return []Migration{
-		gormMysqlMigrations.CreateUsers{},
+		gormMysqlMigrations.CreateUser{},
+		gormMysqlMigrations.CreateProduct{},
 	}
 }

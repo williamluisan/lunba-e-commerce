@@ -13,6 +13,7 @@ type User struct {
 	Email		string
 	Password 	string
 	CreatedAt	time.Time
+	CreatedBy	int
 }
 
 // DTO (Data Transfer Object)

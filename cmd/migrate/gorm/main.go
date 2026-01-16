@@ -22,7 +22,7 @@ func main() {
 
 	command := os.Args[2]
 
-	dsn := "lunba:toor@tcp(localhost:3306)/lunba_e_commerce?parseTime=true"
+	dsn := "root:toor@tcp(mysql:3306)/lunba-e-commerce?parseTime=true"
 
 	db, err := gormMysql.NewMysqlDB(dsn)
 	if err != nil {

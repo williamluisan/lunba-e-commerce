@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	dsn := "lunba:toor@tcp(localhost:3306)/lunba_e_commerce?parseTime=true"
+	dsn := "root:toor@tcp(mysql:3306)/lunba-e-commerce?parseTime=true"
 	db, err := gormMysql.NewMysqlDB(dsn)
 	if err != nil {
 		log.Fatal(err)
@@ -42,5 +42,5 @@ func main() {
 
 	// router
 	router := transHttpGin.NewRouter(deps)
-	router.Run(":80")
+	router.Run(":8000")
 }

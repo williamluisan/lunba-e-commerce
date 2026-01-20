@@ -1,11 +1,9 @@
-package repository
+package payment
 
 import (
 	"context"
-
-	"github.com/williamluisan/lunba-e-commerce/internal/domain/entity"
 )
 
-type PaymenRepository interface {
-	Process(ctx context.Context, e *entity.Payment) error
+type PaymentRepository interface {
+	Process(ctx context.Context, orderId int64) (bool, error)
 }

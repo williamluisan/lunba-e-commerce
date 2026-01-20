@@ -2,28 +2,34 @@ package main
 
 import (
 	"context"
-	"fmt"
 
-	"github.com/williamluisan/lunba-e-commerce/internal/domain/entity"
-	"github.com/williamluisan/lunba-e-commerce/internal/domain/service"
-	"github.com/williamluisan/lunba-e-commerce/internal/infrastructure/mysql"
+	paymentMysqlRepo "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/mysql/payment"
+	paymentService "github.com/williamluisan/lunba-e-commerce/internal/usecase/payment"
 )
 
 func main() {
+	ctx := context.Background()
+
+	/*
 	userService := service.NewUserService(mysql.NewMysqlUserRepository())
 
 	// dummy
 	input := &entity.UserInput{
-		FirstName: "john",
-		LastName: "doe",
-		Email: "0912student01@test.com",
-		Password: "test1234",
+			FirstName: "john",
+			LastName: "doe",
+			Email: "0912student01@test.com",
+			Password: "test1234",
 	}
 
 	err := userService.Create(context.Background(), input)
 	if err != nil {
-		fmt.Println(err)
-		return
+			fmt.Println(err)
+			return
 	}
+	*/
+
+	paymentService := paymentService.New(paymentMysqlRepo.New())
+	orderId := int64(1234)
+	paymentService.Process(ctx, orderId)
 }
 

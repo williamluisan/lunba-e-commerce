@@ -1,10 +1,10 @@
-package repository
+package user
 
 import (
 	"context"
 
-	"github.com/williamluisan/lunba-e-commerce/internal/domain/entity"
-	"github.com/williamluisan/lunba-e-commerce/internal/domain/repository"
+	entity "github.com/williamluisan/lunba-e-commerce/internal/domain/entity/user"
+	repository "github.com/williamluisan/lunba-e-commerce/internal/domain/repository/user"
 	gormModel "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/model"
 	"gorm.io/gorm"
 )

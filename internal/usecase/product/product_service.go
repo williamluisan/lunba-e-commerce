@@ -1,11 +1,11 @@
-package service
+package product
 
 import (
 	"context"
 	"errors"
 
-	"github.com/williamluisan/lunba-e-commerce/internal/domain/entity"
-	"github.com/williamluisan/lunba-e-commerce/internal/domain/repository"
+	entity "github.com/williamluisan/lunba-e-commerce/internal/domain/entity/product"
+	repository "github.com/williamluisan/lunba-e-commerce/internal/domain/repository/product"
 )
 
 type ProductService interface {

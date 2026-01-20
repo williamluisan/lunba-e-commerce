@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/williamluisan/lunba-e-commerce/internal/domain/entity"
+	entity "github.com/williamluisan/lunba-e-commerce/internal/domain/entity/user"
 )
 
 type UserModel struct {

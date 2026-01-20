@@ -1,12 +1,12 @@
-package service
+package user
 
 import (
 	"context"
 	"errors"
 	"fmt"
 
-	"github.com/williamluisan/lunba-e-commerce/internal/domain/entity"
-	"github.com/williamluisan/lunba-e-commerce/internal/domain/repository"
+	entity "github.com/williamluisan/lunba-e-commerce/internal/domain/entity/user"
+	repository "github.com/williamluisan/lunba-e-commerce/internal/domain/repository/user"
 	"golang.org/x/crypto/bcrypt"
 )
 

@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/williamluisan/lunba-e-commerce/internal/domain/entity"
-	"github.com/williamluisan/lunba-e-commerce/internal/domain/service"
+	entity "github.com/williamluisan/lunba-e-commerce/internal/domain/entity/user"
 	"github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler"
+	service "github.com/williamluisan/lunba-e-commerce/internal/usecase/user"
 )
 
 type UserHandler struct {

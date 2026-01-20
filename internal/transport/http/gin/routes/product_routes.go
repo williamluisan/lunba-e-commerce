@@ -8,6 +8,6 @@ import (
 func RegisterProductRoutes(rg *gin.RouterGroup, h *productHandler.ProductHandler) {
 	product := rg.Group("/product") 
 	{
-		product.POST("/create", h.Create)
+		product.POST("/", h.Create)
 	}
 }

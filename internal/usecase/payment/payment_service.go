@@ -30,23 +30,18 @@ func New(r repository.PaymentRepository) PaymentService {
 
 func (i *paymentServiceImpl) Process(ctx context.Context, orderId int64) (*entity.Payment, error) {
 	outstandingAmount := 6000
-	totalPaymenToProcess := 2
-
-	paymentProcess := make([]entity.PaymentProcess, totalPaymenToProcess)
 
 	var wg sync.WaitGroup
 
-	for x := 0; x < totalPaymenToProcess; x++ {
-		paymentProcess[x] = entity.PaymentProcess{
-			OrderId: int64(x),
-			OutstandingAmount: float64(outstandingAmount),
-			PaidAmount: float64(x * 1000),
-		}
-		
-		wg.Add(2)
-		go i.updateBalance(&paymentProcess[x], &wg)
-		go i.updateBalance(&paymentProcess[x], &wg)
+	paymentProcess := entity.PaymentProcess{
+		OrderId: orderId,
+		OutstandingAmount: float64(outstandingAmount),
+		PaidAmount: float64(orderId * 1000),
 	}
+
+	wg.Add(2)
+	go i.updateBalance(&paymentProcess, &wg)
+	go i.updateBalance(&paymentProcess, &wg)
 
 	wg.Wait()
 
@@ -65,6 +60,6 @@ func (i *paymentServiceImpl) updateBalance(e *entity.PaymentProcess, wg *sync.Wa
 	e.RandomAmount += e.Balance
 
 	fmt.Printf("%v\n", e)
-	time.Sleep(3 * time.Second)
+	time.Sleep(1 * time.Second)
 }
 

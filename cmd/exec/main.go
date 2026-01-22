@@ -1,14 +1,12 @@
 package main
 
 import (
-	"context"
-
-	paymentMysqlRepo "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/mysql/payment"
-	paymentService "github.com/williamluisan/lunba-e-commerce/internal/usecase/payment"
+	rabbitMQ "github.com/williamluisan/lunba-e-commerce/internal/transport/rabbitmq"
+	rabbitMQConsumer "github.com/williamluisan/lunba-e-commerce/internal/transport/rabbitmq/consumer"
 )
 
 func main() {
-	ctx := context.Background()
+	// ctx := context.Background()
 
 	/*
 	userService := service.NewUserService(mysql.NewMysqlUserRepository())
@@ -28,8 +26,13 @@ func main() {
 	}
 	*/
 
+	/*
 	paymentService := paymentService.New(paymentMysqlRepo.New())
 	orderId := int64(1234)
 	paymentService.Process(ctx, orderId)
+	*/
+
+	rabbitMQconn := rabbitMQ.Conn()
+	rabbitMQConsumer.PaymentConsume(rabbitMQconn)
 }
 

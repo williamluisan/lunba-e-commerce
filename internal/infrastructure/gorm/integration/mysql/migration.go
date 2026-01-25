@@ -14,9 +14,10 @@ type Migration interface {
 // list all models
 func Models() []Migration{
 	return []Migration{
-		gormMysqlMigrations.CreateUser{},
-		gormMysqlMigrations.CreateProduct{},
-		gormMysqlMigrations.UpdateProductCodeColumn{},
-		gormMysqlMigrations.UpdateProductPriceColumnType{},
+		// gormMysqlMigrations.CreateUser{},
+		// gormMysqlMigrations.CreateProduct{},
+		// gormMysqlMigrations.UpdateProductCodeColumn{},
+		// gormMysqlMigrations.UpdateProductPriceColumnType{},
+		gormMysqlMigrations.CreateOrderTable{},
 	}
 }

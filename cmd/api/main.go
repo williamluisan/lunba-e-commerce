@@ -5,13 +5,8 @@ import (
 
 	transHttpGin "github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin"
 
+	gormOrderRepo "github.com/williamluisan/lunba-e-commerce/internal/domain/repository/order"
 	gormMysql "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/integration/mysql"
-	gormProductRepo "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/repository/product"
-	gormUserRepo "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/repository/user"
-	productHandler "github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler/product"
-	userHandler "github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler/user"
-	productUsecase "github.com/williamluisan/lunba-e-commerce/internal/usecase/product"
-	userUsecase "github.com/williamluisan/lunba-e-commerce/internal/usecase/user"
 )
 
 func main() {
@@ -23,23 +18,24 @@ func main() {
 
 	/* infrastructure */
 	// mysqlUser := mysql.NewMysqlUserRepository()
-	gormUserRepo := gormUserRepo.NewUserRepository(db)
-	gormProductRepo := gormProductRepo.NewProductRepository(db)
+	// gormUserRepo := gormUserRepo.NewUserRepository(db)
+	// gormProductRepo := gormProductRepo.NewProductRepository(db)
+	gormOrderRepo := gormOrderRepo.New(db)
 
 	/* domain */
-	userRepo := gormUserRepo
-	userService := userUsecase.NewUserService(userRepo)
-	productRepo := gormProductRepo
-	productService := productUsecase.NewProductService(productRepo)
+	// userRepo := gormUserRepo
+	// userService := userUsecase.NewUserService(userRepo)
+	// productRepo := gormProductRepo
+	// productService := productUsecase.NewProductService(productRepo)
 
 	/* transport handler */
-	userHandler := userHandler.NewUserHandler(userService)
-	productHandler := productHandler.NewProductHandler(productService)
+	// userHandler := userHandler.NewUserHandler(userService)
+	// productHandler := productHandler.NewProductHandler(productService)
 
 	/* transport dependencies */
 	deps := &transHttpGin.Dependencies{
-		UserHandler: userHandler,
-		ProductHandler: productHandler,
+		// UserHandler: userHandler,
+		// ProductHandler: productHandler,
 	}
 
 	// router

@@ -3,7 +3,7 @@ package payment
 import (
 	"context"
 
-	repository "github.com/williamluisan/lunba-e-commerce/internal/domain/repository/payment"
+	repository "lunba-e-commerce/internal/domain/repository/payment"
 )
 
 type paymentRepositoryImpl struct {}

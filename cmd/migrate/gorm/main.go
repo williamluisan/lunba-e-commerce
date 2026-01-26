@@ -6,7 +6,8 @@ import (
 	"os"
 	"time"
 
-	gormMysql "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/integration/mysql"
+	gormMysql "lunba-e-commerce/internal/infrastructure/gorm/integration/mysql"
+
 	"gorm.io/gorm"
 )
 

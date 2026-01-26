@@ -1,7 +1,7 @@
 package migrations
 
 import (
-	gormModel "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/model"
+	gormModel "lunba-e-commerce/internal/infrastructure/gorm/model"
 	"gorm.io/gorm"
 )
 

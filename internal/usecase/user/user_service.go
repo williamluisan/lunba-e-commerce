@@ -5,8 +5,9 @@ import (
 	"errors"
 	"fmt"
 
-	entity "github.com/williamluisan/lunba-e-commerce/internal/domain/entity/user"
-	repository "github.com/williamluisan/lunba-e-commerce/internal/domain/repository/user"
+	entity "lunba-e-commerce/internal/domain/entity/user"
+	repository "lunba-e-commerce/internal/domain/repository/user"
+
 	"golang.org/x/crypto/bcrypt"
 )
 

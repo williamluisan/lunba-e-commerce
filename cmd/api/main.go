@@ -3,10 +3,14 @@ package main
 import (
 	"log"
 
-	transHttpGin "github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin"
+	transHttpGin "lunba-e-commerce/internal/transport/http/gin"
 
-	gormOrderRepo "github.com/williamluisan/lunba-e-commerce/internal/domain/repository/order"
-	gormMysql "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/integration/mysql"
+	gormMysql "lunba-e-commerce/internal/infrastructure/gorm/integration/mysql"
+	gormOrderRepo "lunba-e-commerce/internal/infrastructure/gorm/repository/order"
+
+	orderUseCase "lunba-e-commerce/internal/usecase/order"
+
+	orderHandler "lunba-e-commerce/internal/transport/http/gin/handler/order"
 )
 
 func main() {
@@ -27,15 +31,19 @@ func main() {
 	// userService := userUsecase.NewUserService(userRepo)
 	// productRepo := gormProductRepo
 	// productService := productUsecase.NewProductService(productRepo)
+	orderRepo := gormOrderRepo
+	orderService := orderUseCase.New(orderRepo)
 
 	/* transport handler */
 	// userHandler := userHandler.NewUserHandler(userService)
 	// productHandler := productHandler.NewProductHandler(productService)
+	orderHandler := orderHandler.New(orderService)
 
 	/* transport dependencies */
 	deps := &transHttpGin.Dependencies{
 		// UserHandler: userHandler,
 		// ProductHandler: productHandler,
+		OrderHandler: orderHandler,
 	}
 
 	// router

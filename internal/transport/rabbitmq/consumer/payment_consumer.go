@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	repositoryMysqlImpl "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/mysql/payment"
-	conn "github.com/williamluisan/lunba-e-commerce/internal/transport/rabbitmq"
-	service "github.com/williamluisan/lunba-e-commerce/internal/usecase/payment"
+	repositoryMysqlImpl "lunba-e-commerce/internal/infrastructure/mysql/payment"
+	conn "lunba-e-commerce/internal/transport/rabbitmq"
+	service "lunba-e-commerce/internal/usecase/payment"
 )
 
 func PaymentConsume(conn *conn.RabbitMQConn) {

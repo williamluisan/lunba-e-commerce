@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	entity "github.com/williamluisan/lunba-e-commerce/internal/domain/entity/payment"
-	repository "github.com/williamluisan/lunba-e-commerce/internal/domain/repository/payment"
+	entity "lunba-e-commerce/internal/domain/entity/payment"
+	repository "lunba-e-commerce/internal/domain/repository/payment"
 )
 
 type PaymentService interface {

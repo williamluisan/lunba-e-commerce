@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	entity "github.com/williamluisan/lunba-e-commerce/internal/domain/entity/product"
-	repository "github.com/williamluisan/lunba-e-commerce/internal/domain/repository/product"
+	entity "lunba-e-commerce/internal/domain/entity/product"
+	repository "lunba-e-commerce/internal/domain/repository/product"
 )
 
 type ProductService interface {

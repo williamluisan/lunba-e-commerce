@@ -3,8 +3,9 @@ package model
 import (
 	"time"
 
+	entity "lunba-e-commerce/internal/domain/entity/user"
+
 	"github.com/google/uuid"
-	entity "github.com/williamluisan/lunba-e-commerce/internal/domain/entity/user"
 )
 
 type UserModel struct {

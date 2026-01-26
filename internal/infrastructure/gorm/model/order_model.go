@@ -1,19 +1,45 @@
 package model
 
-import "time"
+import (
+	entity "lunba-e-commerce/internal/domain/entity/order"
+	"time"
+)
 
 type OrderModel struct {
-	ID				uint64		`gorm:"primaryKey;unique;not null"`
-	PublicId		string		`gorm:"type:char(26);not null"`
-	UserPublicId	string		`gorm:"type:char(26);not null"`
-	ProductPublicId	string		`gorm:"type:char(26);not null"`
-	IsPaid			bool		`gorm:"type:int(1);not null;default:0"`
-	CreatedAt		time.Time	`gorm:"not null"`
-	CreatedBy		int			`gorm:"not null;type:int(10)"`
+	ID				uint64			`gorm:"primaryKey;unique;not null"`
+	PublicId		string			`gorm:"type:char(26);not null"`
+	UserPublicId	string			`gorm:"type:char(26);not null"`
+	ProductPublicId	string			`gorm:"type:char(26);not null"`
+	IsPaid			bool			`gorm:"type:int(1);not null;default:0"`
+	CreatedAt		time.Time		`gorm:"not null"`
+	CreatedBy		string			`gorm:"not null;type:char(26)"`
 	UpdatedAt		time.Time
-	UpdatedBy		int			`gorm:"type:int(10)"`
+	UpdatedBy		string			`gorm:"type:char(26)"`
 }
 
 func (OrderModel) TableName() string {
 	return "orders"
+}
+
+func (m *OrderModel) FromEntity(e *entity.Order) *OrderModel {
+	return &OrderModel{
+		ID:	e.ID,
+		PublicId: e.PublicId,
+		UserPublicId: e.UserPublicId,
+		ProductPublicId: e.ProductPublicId,
+	}
+}
+
+func (m *OrderModel) ToEntity() *entity.Order {
+	return &entity.Order{
+		ID:	m.ID,
+		PublicId: m.PublicId,
+		UserPublicId: m.UserPublicId,
+		ProductPublicId:m.ProductPublicId,
+		IsPaid: m.IsPaid,
+		CreatedAt: m.CreatedAt,
+		CreatedBy: m.CreatedBy,
+		UpdatedAt: m.UpdatedAt,
+		UpdatedBy: m.UpdatedBy,
+	}
 }

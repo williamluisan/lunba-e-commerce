@@ -1,8 +1,9 @@
 package routes
 
 import (
+	userHandler "lunba-e-commerce/internal/transport/http/gin/handler/user"
+
 	"github.com/gin-gonic/gin"
-	userHandler "github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler/user"
 )
 
 func RegisterUserRoutes(rg *gin.RouterGroup, h *userHandler.UserHandler) {

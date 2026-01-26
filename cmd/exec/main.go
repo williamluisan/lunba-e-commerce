@@ -1,8 +1,8 @@
 package main
 
 import (
-	rabbitMQ "github.com/williamluisan/lunba-e-commerce/internal/transport/rabbitmq"
-	rabbitMQConsumer "github.com/williamluisan/lunba-e-commerce/internal/transport/rabbitmq/consumer"
+	rabbitMQ "lunba-e-commerce/internal/transport/rabbitmq"
+	rabbitMQConsumer "lunba-e-commerce/internal/transport/rabbitmq/consumer"
 )
 
 func main() {

@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
 
-	"github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/routes"
+	"lunba-e-commerce/internal/transport/http/gin/routes"
 )
 
 func NewRouter(deps *Dependencies) *gin.Engine{

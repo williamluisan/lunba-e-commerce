@@ -3,8 +3,9 @@ package gin
 import (
 	"net/http"
 
+	"lunba-e-commerce/internal/transport/http/gin/handler"
+
 	"github.com/gin-gonic/gin"
-	"github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler"
 )
 
 func EmptyBodyRequest() gin.HandlerFunc {

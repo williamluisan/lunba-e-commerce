@@ -3,10 +3,11 @@ package product
 import (
 	"net/http"
 
+	entity "lunba-e-commerce/internal/domain/entity/product"
+	"lunba-e-commerce/internal/transport/http/gin/handler"
+	service "lunba-e-commerce/internal/usecase/product"
+
 	"github.com/gin-gonic/gin"
-	entity "github.com/williamluisan/lunba-e-commerce/internal/domain/entity/product"
-	"github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler"
-	service "github.com/williamluisan/lunba-e-commerce/internal/usecase/product"
 )
 
 type ProductHandler struct {

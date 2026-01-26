@@ -3,8 +3,8 @@ package mysql
 import (
 	"context"
 
-	"github.com/williamluisan/lunba-e-commerce/internal/domain/entity"
-	"github.com/williamluisan/lunba-e-commerce/internal/domain/repository"
+	"lunba-e-commerce/internal/domain/entity"
+	"lunba-e-commerce/internal/domain/repository"
 )
 
 type mysqlUserRepositoryImpl struct{

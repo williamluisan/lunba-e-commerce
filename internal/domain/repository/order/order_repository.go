@@ -3,7 +3,7 @@ package order
 import (
 	"context"
 
-	entity "github.com/williamluisan/lunba-e-commerce/internal/domain/entity/order"
+	entity "lunba-e-commerce/internal/domain/entity/order"
 )
 
 type OrderRepository interface {

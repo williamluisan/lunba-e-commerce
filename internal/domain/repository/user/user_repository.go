@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	entity "github.com/williamluisan/lunba-e-commerce/internal/domain/entity/user"
+	entity "lunba-e-commerce/internal/domain/entity/user"
 )
 
 type UserRepository interface {

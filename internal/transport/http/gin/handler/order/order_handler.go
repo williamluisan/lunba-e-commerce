@@ -3,10 +3,11 @@ package order
 import (
 	"net/http"
 
+	entity "lunba-e-commerce/internal/domain/entity/order"
+	"lunba-e-commerce/internal/transport/http/gin/handler"
+	service "lunba-e-commerce/internal/usecase/order"
+
 	"github.com/gin-gonic/gin"
-	entity "github.com/williamluisan/lunba-e-commerce/internal/domain/entity/order"
-	"github.com/williamluisan/lunba-e-commerce/internal/transport/http/gin/handler"
-	service "github.com/williamluisan/lunba-e-commerce/internal/usecase/order"
 )
 
 type OrderHandler struct {
@@ -37,10 +38,10 @@ func (h *OrderHandler) Create(c *gin.Context) {
 		return
 	}
 
-	// check if order public id is exists (on laravel microservice)
+	// TODO: check if order public id is exists (on laravel microservice)
 	// ...
 
-	// check if product is exists via public id (on laravel microservices)
+	// TODO: check if product is exists via public id (on laravel microservices)
 	// ...
 
 	input := &entity.OrderInput{

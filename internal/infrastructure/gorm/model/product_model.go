@@ -3,7 +3,7 @@ package model
 import (
 	"time"
 
-	entity "github.com/williamluisan/lunba-e-commerce/internal/domain/entity/product"
+	entity "lunba-e-commerce/internal/domain/entity/product"
 )
 
 type ProductModel struct {

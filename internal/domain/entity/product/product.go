@@ -24,6 +24,6 @@ func NewProduct(input *ProductInput) *Product {
 		Code: input.Code,
 		Price: input.Price,
 		CreatedAt: time.Now(),
-		CreatedBy: 1, // get from session
+		CreatedBy: 1, // TODO: get from token/session
 	}
 }

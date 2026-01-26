@@ -1,7 +1,8 @@
 package mysql
 
 import (
-	gormMysqlMigrations "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/integration/mysql/migrations"
+	gormMysqlMigrations "lunba-e-commerce/internal/infrastructure/gorm/integration/mysql/migrations"
+
 	"gorm.io/gorm"
 )	
 
@@ -19,5 +20,6 @@ func Models() []Migration{
 		// gormMysqlMigrations.UpdateProductCodeColumn{},
 		// gormMysqlMigrations.UpdateProductPriceColumnType{},
 		gormMysqlMigrations.CreateOrderTable{},
+		gormMysqlMigrations.UpdateOrderTable{},
 	}
 }

@@ -3,9 +3,10 @@ package user
 import (
 	"context"
 
-	entity "github.com/williamluisan/lunba-e-commerce/internal/domain/entity/user"
-	repository "github.com/williamluisan/lunba-e-commerce/internal/domain/repository/user"
-	gormModel "github.com/williamluisan/lunba-e-commerce/internal/infrastructure/gorm/model"
+	entity "lunba-e-commerce/internal/domain/entity/user"
+	repository "lunba-e-commerce/internal/domain/repository/user"
+	gormModel "lunba-e-commerce/internal/infrastructure/gorm/model"
+
 	"gorm.io/gorm"
 )
 

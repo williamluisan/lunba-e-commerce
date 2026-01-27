@@ -5,6 +5,8 @@ import (
 
 	entity "lunba-e-commerce/internal/domain/entity/order"
 	repository "lunba-e-commerce/internal/domain/repository/order"
+
+	ulid "github.com/oklog/ulid/v2"
 )
 
 type OrderService interface {
@@ -36,8 +38,13 @@ func (i *OrderServiceImpl) Create(ctx context.Context, input *entity.OrderInput)
 		ProductPublicId: input.ProductPublicId,
 	}
 
-	// TODO: check if valid ULID
-	// ...
+	// check if valid ULID
+	if _, err := ulid.Parse(data.UserPublicId); err != nil {
+		return err
+	}
+	if _, err := ulid.Parse(data.ProductPublicId); err != nil {
+		return err
+	}
 
 	// TODO: check if user public id is exists (on laravel microservice)
 	// ...

@@ -31,16 +31,30 @@ func (i *OrderServiceImpl) Get(ctx context.Context, orderPublicId string) (*enti
 }
 
 func (i *OrderServiceImpl) Create(ctx context.Context, input *entity.OrderInput) error {
-	// TODO: check if order already exists
-	// ...
-
-	// TODO: check if valid ULID
-	// ...
-
 	data := &entity.OrderInput{
 		UserPublicId: input.UserPublicId,
 		ProductPublicId: input.ProductPublicId,
 	}
+
+	// TODO: check if valid ULID
+	// ...
+
+	// TODO: check if user public id is exists (on laravel microservice)
+	// ...
+
+	// TODO: check if product is exists via public id (on laravel microservices)
+	// ...
+
+	// TODO: check if order already exists
+	// result, err := i.repo.GetByProductAndUser(ctx, data.ProductPublicId, data.UserPublicId)
+	// if  err != nil {
+	// 	return err
+	// }
+	// if result != nil {
+	// 	return &domainErr.OrderAlreadyExistsError{
+	// 		ProductName: "dummy",
+	// 	}
+	// }
 	newOrder := entity.NewOrder(data)
 
 	if err := i.repo.Create(ctx, newOrder); err != nil {
@@ -48,7 +62,6 @@ func (i *OrderServiceImpl) Create(ctx context.Context, input *entity.OrderInput)
 	}
 
 	return nil
-
 }
 
 func (i *OrderServiceImpl) Delete(ctx context.Context, orderPublicId string) error {

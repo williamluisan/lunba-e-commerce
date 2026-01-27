@@ -1,9 +1,11 @@
 package order
 
 import (
+	"errors"
 	"net/http"
 
 	entity "lunba-e-commerce/internal/domain/entity/order"
+	domainErr "lunba-e-commerce/internal/domain/errors"
 	"lunba-e-commerce/internal/transport/http/gin/handler"
 	service "lunba-e-commerce/internal/usecase/order"
 
@@ -30,7 +32,7 @@ func (h *OrderHandler) Create(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, handler.APIResponse{
 			Success: false,
 			Error: &handler.APIError{
-				Code: "validation_error",
+				Code: "validation_error", // TODO: move to specific message files
 				Message: "Validation error",
 				Details: handler.ParseValidationError(err),
 			},
@@ -38,18 +40,21 @@ func (h *OrderHandler) Create(c *gin.Context) {
 		return
 	}
 
-	// TODO: check if order public id is exists (on laravel microservice)
-	// ...
-
-	// TODO: check if product is exists via public id (on laravel microservices)
-	// ...
-
 	input := &entity.OrderInput{
 		UserPublicId: req.UserPublicId,
 		ProductPublicId: req.ProductPublicId,
 	}
 
 	if err := h.service.Create(c, input); err != nil {
+		var e *domainErr.OrderAlreadyExistsError
+		if errors.As(err, &e) {
+			c.JSON(http.StatusConflict, handler.APIResponse{
+				Success: false,
+				Message: e.Error(),
+			})
+			return
+		}
+
 		c.JSON(http.StatusBadRequest, handler.APIResponse{
 			Success: false,
 			Message: err.Error(),
@@ -59,6 +64,6 @@ func (h *OrderHandler) Create(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, handler.APIResponse{
 		Success: true,
-		Message: "Order created successfully",
+		Message: "Order created successfully", // TODO: move to specific message files
 	})
 }

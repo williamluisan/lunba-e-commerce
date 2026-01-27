@@ -27,6 +27,12 @@ func (r *orderRepository) Get(ctx context.Context, orderPublicId string) (*entit
 	return nil, nil
 }
 
+func (r *orderRepository) GetByProductAndUser(ctx context.Context, productPublicId string, userPublicId string) (*entity.Order, error) {
+	// result, err := nil, nil
+
+	return nil, nil
+}
+
 func (r *orderRepository) Create(ctx context.Context, e *entity.Order) error {
 	data := mOrderModel.FromEntity(e)
 

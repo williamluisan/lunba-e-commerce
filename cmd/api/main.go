@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
+
+	config "lunba-e-commerce/config"
 
 	transHttpGin "lunba-e-commerce/internal/transport/http/gin"
 
@@ -14,7 +17,18 @@ import (
 )
 
 func main() {
-	dsn := "root:toor@tcp(mysql:3306)/ln-e-commerce_order_payment?parseTime=true"
+	cfg, err := config.Load()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var dsn string
+	if (cfg.DB.Driver == "mysql") {
+		dsn = fmt.Sprintf(
+			"%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=true&loc=Local",
+			cfg.DB.User, cfg.DB.Pass, cfg.DB.Driver, cfg.DB.Port, cfg.DB.Name, cfg.DB.Charset,
+		)
+	}
 	db, err := gormMysql.NewMysqlDB(dsn)
 	if err != nil {
 		log.Fatal(err)

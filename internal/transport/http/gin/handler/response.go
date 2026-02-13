@@ -2,7 +2,7 @@ package handler
 
 type APIResponse struct {
 	Success 	bool        `json:"success"`
-	Message 	string      `json:"message,omitempty"`
+	Message 	string      `json:"message"`
 	Error		*APIError	`json:"error,omitempty"`
 	Data    	any 		`json:"data,omitempty"`
 }

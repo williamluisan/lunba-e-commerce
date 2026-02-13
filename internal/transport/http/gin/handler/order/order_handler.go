@@ -31,6 +31,7 @@ func (h *OrderHandler) Create(c *gin.Context) {
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, handler.APIResponse{
 			Success: false,
+			Message: "Validation error",
 			Error: &handler.APIError{
 				Code: "validation_error", // TODO: move to specific message files
 				Message: "Validation error",

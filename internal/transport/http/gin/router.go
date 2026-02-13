@@ -26,9 +26,6 @@ func NewRouter(deps *Dependencies) *gin.Engine{
 	// initialize the route
 	r := gin.Default()
 
-	// middleware (global)
-	// r.Use(EmptyBodyRequest())
-
 	api := r.Group("/api")
 
 	// routes.RegisterUserRoutes(api, deps.UserHandler)

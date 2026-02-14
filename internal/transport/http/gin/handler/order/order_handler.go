@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	entity "lunba-e-commerce/internal/domain/entity/order"
-	domainErr "lunba-e-commerce/internal/domain/errors"
+	messages "lunba-e-commerce/internal/domain/messages"
 	"lunba-e-commerce/internal/transport/http/gin/handler"
 	service "lunba-e-commerce/internal/usecase/order"
 
@@ -31,10 +31,10 @@ func (h *OrderHandler) Create(c *gin.Context) {
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, handler.APIResponse{
 			Success: false,
-			Message: "Validation error",
+			Message: messages.ValidationError.Message,
 			Error: &handler.APIError{
-				Code: "validation_error", // TODO: move to specific message files
-				Message: "Validation error",
+				Code: messages.ValidationError.Code,
+				Message: messages.ValidationError.Message,
 				Details: handler.ParseValidationError(err),
 			},
 		})
@@ -42,12 +42,11 @@ func (h *OrderHandler) Create(c *gin.Context) {
 	}
 
 	input := &entity.OrderInput{
-		UserPublicId: req.UserPublicId,
 		ProductPublicId: req.ProductPublicId,
 	}
 
 	if err := h.service.Create(c, input); err != nil {
-		var e *domainErr.OrderAlreadyExistsError
+		var e *messages.OrderAlreadyExistsError
 		if errors.As(err, &e) {
 			c.JSON(http.StatusConflict, handler.APIResponse{
 				Success: false,
@@ -65,6 +64,6 @@ func (h *OrderHandler) Create(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, handler.APIResponse{
 		Success: true,
-		Message: "Order created successfully", // TODO: move to specific message files
+		Message: messages.OrderCreated.Message,
 	})
 }

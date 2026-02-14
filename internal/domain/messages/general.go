@@ -1,4 +1,4 @@
-package errors
+package messages
 
 type ErrorCodeMsg struct {
 	Code	string
@@ -11,4 +11,7 @@ var (
 	InvalidTokenFormat = ErrorCodeMsg{Code: "INVALID_TOKEN_FORMAT", Message: "Invalid Token Format."}
 	InvalidTokenClaims = ErrorCodeMsg{Code: "INVALID_TOKEN_CLAIMS", Message: "Invalid Token Claims."}
 	UnexpectedSigningMethod = ErrorCodeMsg{Code: "UNEXPECTED_SIGNING_METHOD", Message: "Unexpected signing method."}
+
+	// Validation
+	ValidationError = ErrorCodeMsg{Code: "VALIDATION_ERROR", Message: "Validation error."}
 )

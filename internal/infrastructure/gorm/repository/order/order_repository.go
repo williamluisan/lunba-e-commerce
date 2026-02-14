@@ -1,6 +1,7 @@
 package order
 
 import (
+	"errors"
 	entity "lunba-e-commerce/internal/domain/entity/order"
 	repository "lunba-e-commerce/internal/domain/repository/order"
 	gormModel "lunba-e-commerce/internal/infrastructure/gorm/model"
@@ -28,9 +29,15 @@ func (r *orderRepository) Get(ctx context.Context, orderPublicId string) (*entit
 }
 
 func (r *orderRepository) GetByProductAndUser(ctx context.Context, productPublicId string, userPublicId string) (*entity.Order, error) {
-	// result, err := nil, nil
+	result, err := gorm.G[gormModel.OrderModel](r.db).
+		Where("product_public_id = ? AND user_public_id = ?", productPublicId, userPublicId).
+		First(ctx)
 
-	return nil, nil
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, nil
+	}
+
+	return result.ToEntity(), nil
 }
 
 func (r *orderRepository) Create(ctx context.Context, e *entity.Order) error {

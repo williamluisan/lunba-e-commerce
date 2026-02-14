@@ -1,7 +1,11 @@
-package errors
+package messages
 
 import (
 	"fmt"
+)
+
+var (
+	OrderCreated = ErrorCodeMsg{Code: "ORDER_CREATED", Message: "Order created successfully."}
 )
 
 type OrderAlreadyExistsError struct {
@@ -10,7 +14,7 @@ type OrderAlreadyExistsError struct {
 
 func (e *OrderAlreadyExistsError) Error() string {
 	return fmt.Sprintf(
-		"order already exists for product=%s",
+		"Order already exists for product=%s",
 		e.ProductName,
 	)
 }

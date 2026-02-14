@@ -33,7 +33,7 @@ func (m *OrderModel) FromEntity(e *entity.Order) *OrderModel {
 
 func (m *OrderModel) ToEntity() *entity.Order {
 	return &entity.Order{
-		ID:	m.ID,
+		// ID:	m.ID,
 		PublicId: m.PublicId,
 		UserPublicId: m.UserPublicId,
 		ProductPublicId:m.ProductPublicId,

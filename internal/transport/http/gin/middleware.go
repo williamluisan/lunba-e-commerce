@@ -10,7 +10,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/spf13/viper"
 
-	errors "lunba-e-commerce/internal/domain/errors"
+	messages "lunba-e-commerce/internal/domain/messages"
 )
 
 func AuthJWTValidation() gin.HandlerFunc {
@@ -20,8 +20,8 @@ func AuthJWTValidation() gin.HandlerFunc {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, handler.APIResponse{
 				Success: false,
 				Error: &handler.APIError{
-					Code: errors.MissingToken.Code,
-					Message: errors.MissingToken.Message,
+					Code: messages.MissingToken.Code,
+					Message: messages.MissingToken.Message,
 				},
 			})
 			return
@@ -32,8 +32,8 @@ func AuthJWTValidation() gin.HandlerFunc {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, handler.APIResponse{
 				Success: false,
 				Error: &handler.APIError{
-					Code: errors.InvalidTokenFormat.Code,
-					Message: errors.InvalidTokenFormat.Message,
+					Code: messages.InvalidTokenFormat.Code,
+					Message: messages.InvalidTokenFormat.Message,
 				},
 			})
 			return
@@ -47,8 +47,8 @@ func AuthJWTValidation() gin.HandlerFunc {
 				c.AbortWithStatusJSON(http.StatusUnauthorized, handler.APIResponse{
 					Success: false,
 					Error: &handler.APIError{
-						Code: errors.UnexpectedSigningMethod.Code,
-						Message: errors.UnexpectedSigningMethod.Message,
+						Code: messages.UnexpectedSigningMethod.Code,
+						Message: messages.UnexpectedSigningMethod.Message,
 					},
 				})
 				return nil, nil
@@ -60,8 +60,8 @@ func AuthJWTValidation() gin.HandlerFunc {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, handler.APIResponse{
 				Success: false,
 				Error: &handler.APIError{
-					Code: errors.UnexpectedSigningMethod.Code,
-					Message: errors.UnexpectedSigningMethod.Message,
+					Code: messages.UnexpectedSigningMethod.Code,
+					Message: messages.UnexpectedSigningMethod.Message,
 				},
 			})
 			return
@@ -72,8 +72,8 @@ func AuthJWTValidation() gin.HandlerFunc {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, handler.APIResponse{
 				Success: false,
 				Error: &handler.APIError{
-					Code: errors.InvalidTokenClaims.Code,
-					Message: errors.InvalidTokenClaims.Message,
+					Code: messages.InvalidTokenClaims.Code,
+					Message: messages.InvalidTokenClaims.Message,
 				},
 			})
 			return
@@ -85,8 +85,8 @@ func AuthJWTValidation() gin.HandlerFunc {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, handler.APIResponse{
 				Success: false,
 				Error: &handler.APIError{
-					Code: errors.InvalidTokenClaims.Code,
-					Message: errors.InvalidTokenClaims.Message,
+					Code: messages.InvalidTokenClaims.Code,
+					Message: messages.InvalidTokenClaims.Message,
 				},
 			})
 			return

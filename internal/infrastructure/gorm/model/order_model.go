@@ -11,6 +11,7 @@ type OrderModel struct {
 	UserPublicId	string			`gorm:"type:char(26);not null"`
 	ProductPublicId	string			`gorm:"type:char(26);not null"`
 	IsPaid			bool			`gorm:"type:int(1);not null;default:0"`
+	Qty				int				`gorm:"type:int(11);not null;default:1"`
 	CreatedAt		time.Time		`gorm:"not null"`
 	CreatedBy		string			`gorm:"not null;type:char(26)"`
 	UpdatedAt		time.Time

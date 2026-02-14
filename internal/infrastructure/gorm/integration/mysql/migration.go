@@ -21,5 +21,6 @@ func Models() []Migration{
 		// gormMysqlMigrations.UpdateProductPriceColumnType{},
 		gormMysqlMigrations.CreateOrderTable{},
 		gormMysqlMigrations.UpdateOrderTable{},
+		gormMysqlMigrations.UpdateOrderTableAddQtyColumn{},
 	}
 }

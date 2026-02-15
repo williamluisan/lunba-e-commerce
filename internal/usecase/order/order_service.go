@@ -4,7 +4,6 @@ import (
 	"context"
 
 	entity "lunba-e-commerce/internal/domain/entity/order"
-	messages "lunba-e-commerce/internal/domain/messages"
 	repository "lunba-e-commerce/internal/domain/repository/order"
 
 	ulid "github.com/oklog/ulid/v2"
@@ -53,16 +52,19 @@ func (i *OrderServiceImpl) Create(ctx context.Context, input *entity.OrderInput)
 	// TODO: check if product is exists via public id (on laravel microservices)
 	// ...
 
+	// TODO: check if stock still available
+	// ...
+
 	// check if order already exists
-	result, err := i.repo.GetByProductAndUser(ctx, data.ProductPublicId, data.UserPublicId)
-	if  err != nil {
-		return err
-	}
-	if result != nil {
-		return &messages.OrderAlreadyExistsError{
-			ProductName: "dummy",
-		}
-	}
+	// result, err := i.repo.GetByProductAndUser(ctx, data.ProductPublicId, data.UserPublicId)
+	// if  err != nil {
+	// 	return err
+	// }
+	// if result != nil {
+	// 	return &messages.OrderAlreadyExistsError{
+	// 		ProductName: "dummy",
+	// 	}
+	// }
 
 	newOrder := entity.NewOrder(data)
 

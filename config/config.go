@@ -3,6 +3,7 @@ package config
 import (
 	"log"
 
+	"github.com/joho/godotenv"
 	"github.com/spf13/viper"
 )
 
@@ -11,12 +12,13 @@ type Config struct {
 }
 
 func Load() (*Config, error) {
-	viper.SetConfigName(".env")
-	viper.SetConfigType("env")
-	viper.AddConfigPath(".")
-	if err := viper.ReadInConfig(); err != nil {
-		log.Fatal("Unable to load viper configuration: " + err.Error())
+	err := godotenv.Load(".env", ".env.services")
+	if err != nil {
+		log.Println("Config: some env files not loaded: ", err.Error())
 	}
+
+	// let viper auto load the env files
+	viper.AutomaticEnv()
 
 	return &Config{
 		DB: &DatabaseConfig{

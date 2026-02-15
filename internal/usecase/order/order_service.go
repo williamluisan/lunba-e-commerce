@@ -51,7 +51,7 @@ func (i *OrderServiceImpl) Create(ctx context.Context, input *entity.OrderInput)
 		return err
 	}
 
-	// TODO: check if user public id is exists
+	// check if user public id is exists
 	_, err := i.repoUserExt.GetByPublicId(ctx, userPublicId)
 	if err != nil {
 		return err

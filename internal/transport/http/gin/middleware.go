@@ -93,6 +93,7 @@ func AuthJWTValidation() gin.HandlerFunc {
 		}
 
 		// attach user public id to context
+		c.Set("authorization", "Bearer " + tokenStr)
 		c.Set("user_public_id", userPubID)
 		c.Next()
 	}

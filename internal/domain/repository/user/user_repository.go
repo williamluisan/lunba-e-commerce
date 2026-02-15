@@ -12,3 +12,8 @@ type UserRepository interface {
 	Create(ctx context.Context, u *entity.User) error
 	Update(ctx context.Context, u *entity.User) error
 }
+
+// external integration repository interface for user
+type UserRepositoryExt interface {
+	GetByPublicId(ctx context.Context, publicId string) (*entity.User, error)
+}

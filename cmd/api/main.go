@@ -14,6 +14,8 @@ import (
 	orderUseCase "lunba-e-commerce/internal/usecase/order"
 
 	orderHandler "lunba-e-commerce/internal/transport/http/gin/handler/order"
+
+	internalUserProductService "lunba-e-commerce/internal/infrastructure/httpclient/userproduct"
 )
 
 func main() {
@@ -39,6 +41,7 @@ func main() {
 	// gormUserRepo := gormUserRepo.NewUserRepository(db)
 	// gormProductRepo := gormProductRepo.NewProductRepository(db)
 	gormOrderRepo := gormOrderRepo.New(db)
+	userProductServiceUser := internalUserProductService.NewUser()
 
 	/* domain */
 	// userRepo := gormUserRepo
@@ -46,7 +49,7 @@ func main() {
 	// productRepo := gormProductRepo
 	// productService := productUsecase.NewProductService(productRepo)
 	orderRepo := gormOrderRepo
-	orderService := orderUseCase.New(orderRepo)
+	orderService := orderUseCase.New(orderRepo, userProductServiceUser)
 
 	/* transport handler */
 	// userHandler := userHandler.NewUserHandler(userService)

@@ -3,14 +3,14 @@ package userproduct
 import (
 	"context"
 	"encoding/json"
-	"errors"
-	"fmt"
 	"net/http"
 	"time"
 
 	entity "lunba-e-commerce/internal/domain/entity/user"
 	repositoryUser "lunba-e-commerce/internal/domain/repository/user"
-	httpclient "lunba-e-commerce/internal/infrastructure/httpclient"
+	"lunba-e-commerce/internal/infrastructure/httpclient"
+
+	restaaRepo "lunba-e-commerce/pkg/restaa"
 
 	"github.com/spf13/viper"
 )
@@ -28,40 +28,19 @@ func NewUser() repositoryUser.UserRepositoryExt {
 }
 
 func (i *userImpl) GetByPublicId(ctx context.Context, publicId string) (*entity.User, error) {
-	url := fmt.Sprintf(
-		"%s%s/%s",
-		i.baseURL,
-		viper.GetString("USERPRODUCT_SERVICE_USER_EP"),
-		publicId,
-	)
+	token, _ := ctx.Value("authorization").(string);
 
-	// TODO: Create http helper
-	req, err := http.NewRequestWithContext(
-		ctx,
-		http.MethodGet,
-		url,
-		nil, // no body
-	)
+	rest := restaaRepo.New(i.baseURL)
+
+	resp, err := rest.Get(ctx, viper.GetString("USERPRODUCT_SERVICE_USER_EP")+"/"+publicId,
+		restaaRepo.WithHeader("Authorization", token), restaaRepo.WithHeader("Content-Type", "application/json"))
 	if err != nil {
 		return nil, err
-	}
-	if token, ok := ctx.Value("authorization").(string); ok && token != "" {
-		req.Header.Set("Authorization", token)
-	}
-	req.Header.Set("Content-Type", "application/json")
-
-	resp, err := i.client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		return nil, errors.New("Failed to get user detail")
 	}
 
 	var res httpclient.Response[GetUserResponse]
-	if err := json.NewDecoder(resp.Body).Decode(&res); err != nil {
+	err = json.Unmarshal(resp.Body(), &res)
+	if err != nil {
 		return nil, err
 	}
 

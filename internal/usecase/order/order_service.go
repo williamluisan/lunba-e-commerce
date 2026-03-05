@@ -2,6 +2,7 @@ package order
 
 import (
 	"context"
+	"errors"
 
 	entity "lunba-e-commerce/internal/domain/entity/order"
 	repository "lunba-e-commerce/internal/domain/repository/order"
@@ -52,9 +53,12 @@ func (i *OrderServiceImpl) Create(ctx context.Context, input *entity.OrderInput)
 	}
 
 	// check if user public id is exists
-	_, err := i.repoUserExt.GetByPublicId(ctx, userPublicId)
+	user, err := i.repoUserExt.GetByPublicId(ctx, userPublicId)
 	if err != nil {
 		return err
+	}
+	if user.PublicId == "" {
+		return errors.New("User not found.")
 	}
 
 	// TODO: check if product is exists via public id (on laravel microservices)

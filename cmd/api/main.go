@@ -42,6 +42,7 @@ func main() {
 	// gormProductRepo := gormProductRepo.NewProductRepository(db)
 	gormOrderRepo := gormOrderRepo.New(db)
 	userProductServiceUser := internalUserProductService.NewUser()
+	userProductServiceProduct := internalUserProductService.NewProduct()
 
 	/* domain */
 	// userRepo := gormUserRepo
@@ -49,7 +50,7 @@ func main() {
 	// productRepo := gormProductRepo
 	// productService := productUsecase.NewProductService(productRepo)
 	orderRepo := gormOrderRepo
-	orderService := orderUseCase.New(orderRepo, userProductServiceUser)
+	orderService := orderUseCase.New(orderRepo, userProductServiceUser, userProductServiceProduct)
 
 	/* transport handler */
 	// userHandler := userHandler.NewUserHandler(userService)

@@ -11,3 +11,8 @@ type ProductRepository interface {
 	Delete(ctx context.Context, id int64) error
 	GetByCode(ctx context.Context, code string) (*entity.Product, error) 
 }
+
+// external integration repository interface for product
+type ProductRepositoryExt interface {
+	GetByPublicId(ctx context.Context, publicId string) (*entity.Product, error)
+}

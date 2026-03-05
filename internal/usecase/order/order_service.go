@@ -6,6 +6,7 @@ import (
 
 	entity "lunba-e-commerce/internal/domain/entity/order"
 	repository "lunba-e-commerce/internal/domain/repository/order"
+	repositoryProduct "lunba-e-commerce/internal/domain/repository/product"
 	repositoryUser "lunba-e-commerce/internal/domain/repository/user"
 
 	ulid "github.com/oklog/ulid/v2"
@@ -20,15 +21,20 @@ type OrderService interface {
 type OrderServiceImpl struct {
 	repo repository.OrderRepository
 	repoUserExt repositoryUser.UserRepositoryExt
+	repoProductExt repositoryProduct.ProductRepositoryExt
 }
 
-func New(r repository.OrderRepository, ruExt repositoryUser.UserRepositoryExt) OrderService {
+func New(
+	r repository.OrderRepository,
+	ruExt repositoryUser.UserRepositoryExt,
+	rpExt repositoryProduct.ProductRepositoryExt) OrderService {
 	if r == nil || ruExt == nil {
 		panic("Repository not implemented properly.")
 	}
 	return &OrderServiceImpl{
 		repo: r,
 		repoUserExt: ruExt,
+		repoProductExt: rpExt,
 	}
 }
 
@@ -40,14 +46,10 @@ func (i *OrderServiceImpl) Create(ctx context.Context, input *entity.OrderInput)
 	userPublicId := ctx.Value("user_public_id").(string)
 	
 	data := &entity.OrderInput{
-		UserPublicId: userPublicId,
 		ProductPublicId: input.ProductPublicId,
 	}
 
 	// check if valid ULID
-	if _, err := ulid.Parse(data.UserPublicId); err != nil {
-		return err
-	}
 	if _, err := ulid.Parse(data.ProductPublicId); err != nil {
 		return err
 	}
@@ -61,8 +63,14 @@ func (i *OrderServiceImpl) Create(ctx context.Context, input *entity.OrderInput)
 		return errors.New("User not found.")
 	}
 
-	// TODO: check if product is exists via public id (on laravel microservices)
-	// ...
+	// check if product is exists via public id
+	product, err := i.repoProductExt.GetByPublicId(ctx, data.ProductPublicId)
+	if err != nil {
+		return err
+	}
+	if product.PublicId == "" {
+		return errors.New("Product not found.")
+	}
 
 	// TODO: check if stock still available
 	// ...

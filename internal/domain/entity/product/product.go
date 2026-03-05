@@ -4,11 +4,16 @@ import "time"
 
 type Product struct {
 	ID    		int64
+	PublicId 	string
 	Name  		string
 	Code  		string
 	Price 		float64
+	Stock		int
+	Status		string
 	CreatedAt 	time.Time
 	CreatedBy 	int
+	UpdatedAt	time.Time
+	UpdatedBy	int
 }
 
 // DTO

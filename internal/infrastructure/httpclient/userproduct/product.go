@@ -3,54 +3,58 @@ package userproduct
 import (
 	"context"
 	"encoding/json"
-	"time"
-
-	entity "lunba-e-commerce/internal/domain/entity/user"
-	repositoryUser "lunba-e-commerce/internal/domain/repository/user"
+	entity "lunba-e-commerce/internal/domain/entity/product"
+	repositoryProduct "lunba-e-commerce/internal/domain/repository/product"
 	"lunba-e-commerce/internal/infrastructure/httpclient"
+	"strconv"
+	"time"
 
 	restaaRepo "lunba-e-commerce/pkg/restaa"
 
 	"github.com/spf13/viper"
 )
 
-type userImpl struct {
+type productImpl struct {
 	baseURL string
 }
 
-func NewUser() repositoryUser.UserRepositoryExt {
-	return &userImpl{
+func NewProduct() repositoryProduct.ProductRepositoryExt {
+	return &productImpl{
 		baseURL: viper.GetString("USERPRODUCT_SERVICE_BASE_URL"),
 	}
 }
 
-func (i *userImpl) GetByPublicId(ctx context.Context, publicId string) (*entity.User, error) {
+func (i *productImpl) GetByPublicId(ctx context.Context, publicId string) (*entity.Product, error) {
 	token, _ := ctx.Value("authorization").(string);
 
 	rest := restaaRepo.New(i.baseURL)
 
-	resp, err := rest.Get(ctx, viper.GetString("USERPRODUCT_SERVICE_USER_EP")+"/"+publicId,
+	resp, err := rest.Get(ctx, viper.GetString("USERPRODUCT_SERVICE_PRODUCT_EP")+"/"+publicId,
 		restaaRepo.WithHeader("Authorization", token), restaaRepo.WithHeader("Content-Type", "application/json"))
 	if err != nil {
 		return nil, err
 	}
 
-	var res httpclient.Response[GetUserResponse]
+	var res httpclient.Response[GetProductResponse]
 	err = json.Unmarshal(resp.Body(), &res)
 	if err != nil {
 		return nil, err
 	}
 
+	price, _ := strconv.ParseFloat(res.Data.Price, 64)
 	createdAt, _ := time.Parse("2006-01-02 15:04:05", res.Data.CreatedAt)
 	updatedAt, _ := time.Parse("2006-01-02 15:04:05", res.Data.UpdatedAt)
 
-	user := &entity.User{
+	product := &entity.Product{
 		PublicId: res.Data.PublicId,
 		Name: res.Data.Name,
-		Email: res.Data.Email,
+		Code: res.Data.Code,
+		Price: price,
+		Stock: res.Data.Stock,
+		Status: res.Data.Status,
 		CreatedAt: createdAt,
 		UpdatedAt: updatedAt,
 	}
 
-	return user, err
+	return product, err
 }
